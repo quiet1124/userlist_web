@@ -41,6 +41,19 @@ router.post('/topic/add', (req, res)=>{
     })
     
 })
+router.get('/topic/edit/:id', (req, res)=>{
+    var id = req.params.id
+    var sql = `SELECT * FROM topic WHERE id=${id}`
+    db.query(sql, (err, result)=>{
+        if(err) {
+            console.log(err)
+            res.status(500).send("Internal Server Error")
+        }
+        console.log(result)
+        // console.log("test:"+id)
+        res.render("edit", {topic:result[0]})
+    })
+})
 
 // params 처리(:id는 변수값)
 router.get(['/topic/', '/topic/:id'], (req, res)=>{
