@@ -39,8 +39,27 @@ router.post('/topic/add', (req, res)=>{
         console.log(result)
         res.redirect('/topic/add')
     })
-    
 })
+
+router.get('/topic/delete/:delid', (req, res)=>{
+    var delid = req.params.delid
+    db.query(`SELECT * FROM topic WHERE id=${delid}`, (err, results)=>{
+        var title = results[0].title
+        var description = results[0].description
+        var author = results[0].author
+        console.log(title, description, author)
+
+        var sql = `DELETE FROM topic WHERE id=${delid}`
+    db.query(sql, (err, result)=>{
+        if(err) {
+            console.log(err)
+        }
+        console.log(result)
+        res.redirect('/topic')
+    })
+    })
+})
+
 router.get('/topic/edit/:id', (req, res)=>{
     var id = req.params.id
     var sql = `SELECT * FROM topic WHERE id=${id}`
