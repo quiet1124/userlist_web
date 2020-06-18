@@ -17,7 +17,7 @@
 </head>
 <body>
     <article>
-        <form action="/topic/add" method="POST" >
+        <form action="/topic/<%= topic.id %>/edit" method="POST" onsubmit="return confirm('수정하시겠습니까?')">
             <div class="form-group">
             <p><input  class="form-control" type="text" name="title" value="<%= topic.title %>" required></p>
             <p><textarea  class="form-control" type="text" name="description" cols="100" required><%= topic.description %></textarea></p>
@@ -28,7 +28,7 @@
         <form action="/topic/<%= topic.id %>">
             <p><input  class="form-control btn-danger" type="submit" value="취소"></p>
         </form>
-        <a href="/topic"><button type="button" class="btn btn-info">홈으로</button></a>
+        <a href="/topic"><button type="button" class="btn btn-info">Go To Home</button></a>
     </article>
 </body>
 </html>

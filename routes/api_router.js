@@ -55,13 +55,27 @@ router.get('/topic/edit/:id', (req, res)=>{
     })
 })
 
+router.post('/topic/:id/edit', (req, res)=>{
+   var id = req.params.id
+   var title = req.body.title
+   var description = req.body.description
+   var author = req.body.author
+   var sql = `UPDATE topic SET title=?, description=?, author=? WHERE  id=${id}`
+   var upData = [title, description, author]
+   db.query(sql, upData, (err, result)=>{
+        if(err) {
+            console.log(err)
+            res.status(500).send("Internal Long time Error")
+        }
+        console.log(title, description, author)
+        res.redirect(`/topic/${id}`)
+   })
+})
 // params 처리(:id는 변수값)
 router.get(['/topic/', '/topic/:id'], (req, res)=>{
+    var id = req.params.id
     var sql = `SELECT * FROM topic`
     db.query(sql, (err, results)=>{
-        var id = req.params.id
-        
-       
         if(id) {
             // var sql = 'SELECT * FROM topic WHERE id='+id
             var sql = `SELECT * FROM topic WHERE id=${id}`
